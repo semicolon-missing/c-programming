@@ -25,6 +25,7 @@ void printMatrix(const int matrix[][COLS], int rows){
 	printf("\n");
 	}
 }
+
 int main(){
 	int myMatrix[ROWS][COLS];
 	
