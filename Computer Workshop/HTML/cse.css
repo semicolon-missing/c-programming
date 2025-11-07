@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+/* Resetting default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background: #1e1e1e;
+    color: #FFFFFF;
+    min-height: 100vh;
+}
+
+.header {
+    background: #282828;
+    color: white;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 20px;
+
+}
+
+.header img {
+    width: 100px;
+    height: 100px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.container {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.section {
+    margin-top: 40px;
+}
+
+/* Cards Styling */
+.cards {
+    background: #282828;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 200px;
+    height: 50px;
+    /* Increased height to match college.css */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.cards:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.cards a {
+    color: #1DB954;
+    text-decoration: none;
+    font-size: 20px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    /* Ensures text doesn't overflow */
+}
+
+/* Profile Styling */
+.profile {
+    background: #282828;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 200px;
+    display: inline-block;
+    margin: 20px;
+    text-align: center;
+}
+
+.profile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.profile a {
+    color: #1DB954;
+    text-decoration: none;
+    font-size: 16px;
+}
