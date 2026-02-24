@@ -1,106 +1,69 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <ctype.h>
 
 #define MAX 100
 
-typedef struct {
-    int top;
-    char items[MAX];
-} Stack;
+char stack[MAX];
+int top = -1;
 
-void init(Stack *s) {
-    s->top = -1;
+void push(char x) {
+    if (top < MAX - 1) stack[++top] = x;
 }
 
-int isEmpty(Stack *s) {
-    return s->top == -1;
+char pop() {
+    if (top == -1) return '\0';
+    return stack[top--];
 }
 
-int isFull(Stack *s) {
-    return s->top == MAX - 1;
-}
-
-void push(Stack *s, char c) {
-    if (isFull(s)) {
-        printf("Stack Overflow\n");
-        return;
-    }
-    s->items[++(s->top)] = c;
-}
-
-char pop(Stack *s) {
-    if (isEmpty(s)) {
-        return '\0';
-    }
-    return s->items[(s->top)--];
-}
-
-char peek(Stack *s) {
-    if (isEmpty(s)) {
-        return '\0';
-    }
-    return s->items[s->top];
-}
-
-int precedence(char c) {
-    if (c == '+' || c == '-') return 1;
-    if (c == '*' || c == '/') return 2;
-    if (c == '^') return 3;
+int precedence(char x) {
+    if (x == '^') return 3;
+    if (x == '*' || x == '/') return 2;
+    if (x == '+' || x == '-') return 1;
     return 0;
 }
 
-int isOperator(char c) {
-    return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
-}
-
-void infixToPostfix(char *infix, char *postfix) {
-    Stack s;
-    init(&s);
-    int i, j = 0;
-    char c;
-
-    for (i = 0; infix[i] != '\0'; i++) {
-        c = infix[i];
-
-        if (isalnum(c)) {
-            postfix[j++] = c;
-        } else if (c == '(') {
-            push(&s, '(');
-        } else if (c == ')') {
-            while (!isEmpty(&s) && peek(&s) != '(') {
-                postfix[j++] = pop(&s);
+void infixToPostfix(char* exp) {
+    char postfix[MAX];
+    int j = 0;
+    
+    for (int i = 0; exp[i] != '\0'; i++) {
+        // 1. Operands go directly to the postfix output
+        if (isalnum(exp[i])) {
+            postfix[j++] = exp[i];
+        } 
+        // 2. Push '(' onto the stack
+        else if (exp[i] == '(') {
+            push(exp[i]);
+        } 
+        // 3. On ')', pop operators to output until '(' is found
+        else if (exp[i] == ')') {
+            while (top != -1 && stack[top] != '(') {
+                postfix[j++] = pop();
             }
-            pop(&s); // Remove '('
-        } else if (isOperator(c)) {
-            while (!isEmpty(&s) && precedence(peek(&s)) >= precedence(c)) {
-                postfix[j++] = pop(&s);
+            pop(); // Remove '(' from the stack
+        } 
+        // 4. On operator, pop higher or equal precedence operators, then push
+        else {
+            while (top != -1 && precedence(stack[top]) >= precedence(exp[i])) {
+                postfix[j++] = pop();
             }
-            push(&s, c);
+            push(exp[i]);
         }
     }
-
-    while (!isEmpty(&s)) {
-        postfix[j++] = pop(&s);
+    
+    // 5. Pop all remaining operators
+    while (top != -1) {
+        postfix[j++] = pop();
     }
     postfix[j] = '\0';
+    
+    printf("Postfix expression: %s\n", postfix);
 }
 
 int main() {
-    char infix[MAX], postfix[MAX];
-
-    printf("Enter infix expression: ");
-    if (fgets(infix, MAX, stdin)) {
-        // Remove newline character if present
-        size_t len = strlen(infix);
-        if (len > 0 && infix[len - 1] == '\n') {
-            infix[len - 1] = '\0';
-        }
-
-        infixToPostfix(infix, postfix);
-        printf("Postfix expression: %s\n", postfix);
-    }
-
+    char exp[] = "(A+B)*(C-D)";
+    printf("Infix expression:   %s\n", exp);
+    infixToPostfix(exp);
     return 0;
 }
