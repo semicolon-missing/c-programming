@@ -9,6 +9,7 @@ int **make_2D_array(int rows, int cols){
     }
     return arr;
 }
+//Similarly calloc can be used to initialize the matrix with all elements being zero. 
 
 void printMatrix(int **arr, int rows, int cols){
 	printf("\nMatrix Contents:\n");
@@ -37,6 +38,7 @@ int main() {
     for (int i = 0; i < 5; i++) {
         free(arr[i]);
     }
+    //We first free the memory of all rows.
     free(arr);
 
     return 0;
