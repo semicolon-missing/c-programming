@@ -9,3 +9,4 @@ To be implemented in Linked List
     3.1 Deletion at start
     3.2 Deletion at the end
     3.3 Deletion of a specific value
+4. Counting number of nodes

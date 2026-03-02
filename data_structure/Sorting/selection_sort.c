@@ -1,26 +1,26 @@
 #include <stdio.h>
 
-void selection_sort(int arr[], int size){
-    int i, j, min_index;
-    for (int i = 0; i < size - 1; i++) {
-        min_index = i;
-        for (int j = 0; j < size; j++) {
-            if (arr[j] < arr[min_index])
-            {
-                min_index = j;
-                swap(&arr[min_index], &arr[i]);
-            }
-            
-            
-        }
-    }
-}
 void swap(int *a, int *b)
 {
     int temp = *a;
     *a = *b;
     *b = temp;
 }
+
+void selection_sort(int arr[], int size){
+    int i, j, min_index;
+    for (int i = 0; i < size - 1; i++) {
+        min_index = i;
+        for (int j = i + 1; j < size; j++) {
+            if (arr[j] > arr[min_index])
+            {
+                min_index = j;
+            }
+        }
+        swap(&arr[min_index], &arr[i]);
+    }
+}
+
 void printArray(int arr[], int size)
 {
     printf("The elements of the array are: {");
