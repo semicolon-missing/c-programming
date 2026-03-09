@@ -10,7 +10,6 @@ float min_array(float arr[], int size){
 	return min;
 }
 
-// FIX: Changed parameter from 'float arr' to 'float arr[]' to correctly accept an array.
 float max_array(float arr[], int size){
 	float max = arr[0];
 	for (int i = 0; i < size; i++){
@@ -21,9 +20,9 @@ float max_array(float arr[], int size){
 	return max;
 }
 
-void normalisation(float arr[], int size, float min, float max){
+void normalisation(float arr[], int size, float min, float max)
+{
 	float norm_array[size];
-
 	if (min == max){
 		printf("All elements are equal\n");
 		return;
@@ -38,14 +37,14 @@ void normalisation(float arr[], int size, float min, float max){
 }
 
 int main() {
-	float arr[] = {50.0, 20.0, 36.7, 75.8, 64.51}; // FIX: Added missing semicolon.
+	float arr[] = {50.0, 20.0, 36.7, 75.8, 64.51}; 
 	int size = 5;
 	float min, max;
 
 	min = min_array(arr, size);
 	max = max_array(arr, size);
 
-	normalisation(arr, size, min, max); // FIX: Added missing semicolon.
+	normalisation(arr, size, min, max); 
 
 	return 0;
 }

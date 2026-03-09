@@ -2,24 +2,87 @@
 
 #define MAX 8
 
-int q[MAX], rear = -1, front = -1;
+int queue[MAX];
+int rear = -1;
+int front = -1;
 
+
+//Enqueue function
 void enqueue(int val)
 {
-    if ((rear + 1) % MAX == front)
-        return;
+    if (rear == -1 && front == -1){
+        rear++;
+        front++;
+        queue[rear] = val;
+    }
 
-    if (front == -1) front = 0;
-    rear = (rear + 1) % MAX;
-    q[rear] = val;
-} 
+    else if(rear == MAX - 1){
+        printf("Overflow\n");
+    }
 
-int dequeue(){
-    if 
+    else {
+        rear++;
+        queue[rear] = val;
+    }
 }
 
-int main()
-{
+//Dequeue Function
+void dequeue(){
+    if (front == -1){
+        printf("Underflow\n");
+    }
+
+    else if(front == rear){
+        printf("Dequeued element = %d\n", queue[front]);
+        front = -1;
+        rear = -1;
+    }
+
+    else {
+        printf("Dequeued element = %d\n", queue[front]);
+        front++;
+    }
+}
+
+void peek(){
+    if (front == -1)
+    {
+        printf("Queue is empty.\n");
+    }
+
+    else{
+        printf("%d\n", queue[front]);
+    }
+    
+}
+
+//Display function
+void display(){
+    if (front == -1)
+    {
+        printf("Queue is empty\n");
+    }
+    else {
+        printf("Queue is: ");
+        for (int i = front; i <= rear; i++) {
+            printf("%d ", queue[i]);
+        }
+        printf("\n");
+    }
+}
+
+
+int main() {
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    display();
+    
+    dequeue();
+    display();
+    
+    enqueue(40);
+    display();
 
     return 0;
 }

@@ -1,105 +1,92 @@
 #include <stdio.h>
 
-// Define the maximum size of the queue
 #define N 5
 
-/**
- * Inserts an element into the circular queue.
- * @param Q Pointer to the queue array
- * @param F Pointer to the front index
- * @param R Pointer to the rear index
- * @param size The maximum size of the queue
- * @param val The character value to insert
- */
-void insert(char *Q, int *F, int *R, int size, char val) {
-    // Check if the queue is full
-    // In a circular queue, the next position after R being F indicates overflow
-    if ((*R + 1) % size == *F) {
-        printf("Queue Overflow\n");
-        return;
+int queue[N];
+int front = -1;
+int rear = -1;
+
+//Enqueue function in a circular queue
+void enqueue(int x){
+    if (front == -1 && rear == -1)
+    {
+        front = rear = 0;
+        queue[rear] = x;
+    }
+
+    else if ((rear + 1)%N == front)
+    {
+        printf("Overflow\n");
     }
     
-    // If the queue is empty, initialize F to 0
-    if (*F == -1) {
-        *F = 0;
+    else {
+        rear = (rear + 1) % N;
+        queue[rear] = x;
     }
     
-    // Increment R circularly and insert the value
-    *R = (*R + 1) % size;
-    Q[*R] = val;
 }
 
-/**
- * Deletes an element from the circular queue.
- * @return The deleted character, or -1 if underflow
- */
-int deletion(char *Q, int *F, int *R, int size) {
-    // Check if the queue is empty
-    if (*F == -1) {
-        printf("Queue Underflow\n");
-        return -1;
+// Dequeue function in a circular queue
+void dequeue(){
+    if (front == -1 && rear == -1)
+    {
+        printf("Underflow\n");
     }
     
-    char y = Q[*F];
-    
-    // If there was only one element, reset F and R to -1
-    if (*F == *R) {
-        *F = -1;
-        *R = -1;
-    } else {
-        // Increment F circularly
-        *F = (*F + 1) % size;
+    else if(front == rear)
+    {
+        printf("Dequeued element: %d\n", queue[front]);
+        front = rear = -1;
     }
-    
-    return y;
+
+    else {
+        printf("Dequeued element: %d\n", queue[front]);
+        front = (front + 1) % N;
+    }
 }
 
-/**
- * Displays the current elements in the circular queue.
- */
-void display(char *Q, int F, int R, int size) {
-    if (F == -1) {
+//Display function
+void display(){
+    if (front == -1 && rear == -1)
+    {
         printf("Queue is empty\n");
-        return;
+    }
+
+    else{
+        int i = front;
+        printf("Queue is: \n");
+        while (i != rear)
+        {
+            printf("%d ", queue[i]);
+            i = (i + 1) % N;
+
+        }
+        printf("%d\n", queue[rear]);
     }
     
-    printf("Circular Queue: ");
-    int i = F;
-    while (1) {
-        printf("%c ", Q[i]);
-        if (i == R) break; // Reached the end of the queue
-        i = (i + 1) % size; // Move to the next index circularly
+}
+
+void peek(){
+    if (front == -1 && rear == -1)
+    {
+        printf("Queue is empty\n");
     }
-    printf("\n");
+    else{
+        printf("%d\n", queue[front]);
+    }
 }
 
 int main() {
-    char Q[N];
-    int F = -1, R = -1;
-
-    // Test insertions
-    insert(Q, &F, &R, N, 'A');
-    insert(Q, &F, &R, N, 'B');
-    insert(Q, &F, &R, N, 'C');
-    insert(Q, &F, &R, N, 'D');
-    insert(Q, &F, &R, N, 'E'); // Queue is now full (size 5)
-    display(Q, F, R, N);
-
-    // Test overflow
-    insert(Q, &F, &R, N, 'F');
-
-    // Test deletions
-    int res;
-    if ((res = deletion(Q, &F, &R, N)) != -1)
-        printf("Deleted: %c\n", (char)res);
-    if ((res = deletion(Q, &F, &R, N)) != -1)
-        printf("Deleted: %c\n", (char)res);
-    
-    display(Q, F, R, N);
-
-    // Test circular insertion
-    insert(Q, &F, &R, N, 'X');
-    display(Q, F, R, N);
+    enqueue(2);
+    enqueue(-1);
+    enqueue(5);
+    enqueue(6);
+    enqueue(7);
+    display();
+    dequeue();
+    dequeue();
+    dequeue();
+    display();
 
     return 0;
 }
