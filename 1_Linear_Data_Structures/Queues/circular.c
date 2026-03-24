@@ -54,7 +54,7 @@ void display(){
 
     else{
         int i = front;
-        printf("Queue is: \n");
+        printf("Queue is: ");
         while (i != rear)
         {
             printf("%d ", queue[i]);
@@ -85,7 +85,10 @@ int main() {
     display();
     dequeue();
     dequeue();
-    dequeue();
+    display();
+
+    enqueue(12);
+    enqueue(9);
     display();
 
     return 0;

@@ -18,7 +18,7 @@ void insertion_sort(int arr[], int size){
 }
 void printArray(int arr[], int size)
 {
-    printf("The elements of the array are: {");
+    printf("{");
     for (int i = 0; i < size; i++)
     {
         printf("%d", arr[i]);
