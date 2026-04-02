@@ -26,10 +26,7 @@ void printMatrix(const int matrix[][COLS], int rows){
 	}
 }
 
-// FIX: The function's parameters were updated to remove 'ROWS' and 'COLS', which are already defined as macros.
-// This change simplifies the function signature and avoids redundancy.
-// FIX: The local declarations for 'matrix1', 'matrix2', and 'result' were removed.
-// These declarations were shadowing the intended matrices from the parameters, leading to incorrect calculations.
+
 void addMatrix(int matrix1[ROWS][COLS], int matrix2[ROWS][COLS], int result[ROWS][COLS]){
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++){

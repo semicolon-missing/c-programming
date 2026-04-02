@@ -6,7 +6,7 @@ typedef struct node {
     struct node *next;
 } node;
 
-// Helper function to create a single node
+// Function to create a single node
 node* create_node(int value) {
     node *new_node = (node *)malloc(sizeof(node));
     if (new_node == NULL) {
