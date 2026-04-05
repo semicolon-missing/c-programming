@@ -262,68 +262,102 @@ void reverse_list(Node **head) {
   }
 }
 
-int main() {
-  Node *head = NULL;
-  int choice = 1;
-  int val;
+// Function to count nodes
+int node_count(Node *head) {
+  int count = 0;
+  Node *temp = head;
+  while (temp != NULL) {
+    count++;
+    temp = temp->next;
+  }
+  return count;
+}
 
+// Function to create a list with multiple nodes
+void create_list(Node **head) {
+  int choice = 1;
+  int data;
+  free_list(head);
   while (choice == 1) {
     printf("Enter data: ");
-    if (scanf("%d", &val) != 1) {
-      printf("Invalid input.\n");
-      break;
-    }
-
-    append(&head, val);
-
-    printf("Add another? (1 for yes, 0 for no): ");
-    if (scanf("%d", &choice) != 1)
-      break;
+    scanf("%d", &data);
+    insert_at_end(head, data);
+    printf("Do you want to continue? (1 for yes, 0 for no): ");
+    scanf("%d", &choice);
   }
+}
 
-  printf("Initial list creation completed.\n");
-  print_list(head);
+int main() {
+  Node *head = NULL;
+  int choice, data, position;
+  while (1) {
+    printf("\n--- Doubly Linked List Menu ---\n");
+    printf("1. Create List\n");
+    printf("2. Display List\n");
+    printf("3. Insert at Start\n");
+    printf("4. Insert at End\n");
+    printf("5. Insert at Position\n");
+    printf("6. Delete at Start\n");
+    printf("7. Delete at End\n");
+    printf("8. Delete at Position\n");
+    printf("9. Reverse List\n");
+    printf("10. Count Nodes\n");
+    printf("11. Free List\n");
+    printf("12. Exit\n");
+    printf("Enter your choice: ");
+    if (scanf("%d", &choice) != 1) break;
 
-  printf("\n--- Test Insertions ---\n");
-  insert_at_start(&head, 30);
-  insert_at_start(&head, 45);
-  print_list(head);
-
-  insert_at_end(&head, 97);
-  insert_at_end(&head, 76);
-  print_list(head);
-
-  printf("Insert 39 after pos 3:\n");
-  insert_after_pos(&head, 39, 3);
-  print_list(head);
-
-  printf("Insert 69 before pos 4:\n");
-  insert_before_pos(&head, 69, 4);
-  print_list(head);
-
-  printf("\n--- Test Deletions ---\n");
-  printf("Delete at start:\n");
-  delete_at_start(&head);
-  print_list(head);
-
-  printf("Delete at end:\n");
-  delete_at_end(&head);
-  print_list(head);
-
-  printf("Delete at position 3:\n");
-  delete_at_pos(&head, 3);
-  
-  print_list(head);
-
-  printf("\n--- Test Reversal ---\n");
-  printf("Reversing list:\n");
-  reverse_list(&head);
-  print_list(head);
-
-  printf("Reversing again:\n");
-  reverse_list(&head);
-  print_list(head);
-
-  free_list(&head);
+    switch (choice) {
+      case 1:
+        create_list(&head);
+        break;
+      case 2:
+        print_list(head);
+        break;
+      case 3:
+        printf("Enter data: ");
+        scanf("%d", &data);
+        insert_at_start(&head, data);
+        break;
+      case 4:
+        printf("Enter data: ");
+        scanf("%d", &data);
+        insert_at_end(&head, data);
+        break;
+      case 5:
+        printf("Enter data: ");
+        scanf("%d", &data);
+        printf("Enter position: ");
+        scanf("%d", &position);
+        insert_before_pos(&head, data, position);
+        break;
+      case 6:
+        delete_at_start(&head);
+        break;
+      case 7:
+        delete_at_end(&head);
+        break;
+      case 8:
+        printf("Enter position: ");
+        scanf("%d", &position);
+        delete_at_pos(&head, position);
+        break;
+      case 9:
+        reverse_list(&head);
+        break;
+      case 10:
+        printf("Node count: %d\n", node_count(head));
+        break;
+      case 11:
+        free_list(&head);
+        printf("List cleared.\n");
+        break;
+      case 12:
+        free_list(&head);
+        exit(0);
+      default:
+        printf("Invalid choice!\n");
+    }
+  }
   return 0;
 }
