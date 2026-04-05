@@ -1,6 +1,6 @@
 // A Program to rotate the elements of a one dimensional array to the right by k positions.
 
-#include <stdio.h> /
+#include <stdio.h> 
 
 int main(){
 	// Declare and initialize the original array
